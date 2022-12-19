@@ -100,7 +100,7 @@ function LemonDrop() {
         xmlns="http://www.w3.org/2000/svg"
         class="mt-36"
         role="img"
-        aria-label="Fresh logo"
+        aria-label="Fresh logo now Ponder"
       >
         <circle cx="18" cy={dropy} r="4" fill="white"></circle>
         <path

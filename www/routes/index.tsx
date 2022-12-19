@@ -25,9 +25,9 @@ export const handler: Handlers = {
   },
 };
 
-const TITLE = "fresh - The next-gen web framework.";
+const TITLE = "Ponder - A simple ORM for PostGresSQL in Deno.";
 const DESCRIPTION =
-  "Just in time edge rendering, island based interactivity, and no configuration TypeScript support using Deno.";
+  "Basic CRUD functionality, managing tables, and introspection for PostGresSQL in Deno.";
 
 export default function MainPage(props: PageProps) {
   const ogImageUrl = new URL(asset("/home-og.png"), props.url).href;
@@ -68,11 +68,10 @@ function HelloBar() {
   return (
     <a
       class="bg-green-400 text-black border(b green-500) p-3 text-center group"
-      href="https://deno.com/blog/fresh-1.1"
+      href="https://deno.land/x/ponder/"
     >
-      <b>Fresh v1.1</b> has been released with support for <b>automatic JSX</b>,
+      <b>Ponder v0.0.3.1</b> has been released, still in pre-production! <b>Use at your own Discretion!</b>
       {" "}
-      <b>plugins</b>, <b>DevTools support</b>, and more!{"  "}
       <span class="group-hover:underline">→</span>
     </a>
   );
@@ -97,22 +96,21 @@ function Features() {
       <div class={item}>
         <FeatureIcons.Globe />
         <div class={desc}>
-          <b>Just-in-time rendering</b> on the edge.
+          <b>Basic CRUD Functionality</b> for PostGresSQL.
         </div>
       </div>
 
       <div class={item}>
         <FeatureIcons.Island />
         <div class={desc}>
-          <b>Island based client hydration</b> for maximum interactivity.
+          <b>Database Introspection</b> for seeing what's already in your Database.
         </div>
       </div>
 
       <div class={item}>
         <FeatureIcons.LightWeight />
         <div class={desc}>
-          <b>Zero runtime overhead</b>: no JS is shipped to the client by
-          default.
+          <b>Super lightweight</b>: only the functionality you need.
         </div>
       </div>
 
@@ -126,14 +124,14 @@ function Features() {
       <div class={item}>
         <FeatureIcons.Gabage />
         <div class={desc}>
-          <b>No configuration</b> necessary.
+          <b>No configuration</b>, just connect your Database.
         </div>
       </div>
 
       <div class={item}>
         <FeatureIcons.TypeScript />
         <div class={desc}>
-          <b>TypeScript support</b> out of the box.
+          <b>Written 100% in TypeScript</b> no complier needed.
         </div>
       </div>
     </div>
@@ -146,11 +144,11 @@ function Intro() {
       <div class="md:flex items-center">
         <div class="flex-1 text-center md:text-left">
           <h2 class="py-2 text(5xl sm:5xl lg:5xl gray-900) sm:tracking-tight sm:leading-[1.1]! font-extrabold">
-            The <span class="text-green-600">next-gen</span> web framework.
+            A <span class="text-green-600">simple ORM</span> for PostGres, built for Deno.
           </h2>
 
           <p class="mt-4 text-gray-600">
-            Built for speed, reliability, and simplicity.
+            Simple, fast, lightweight.
           </p>
         </div>
 
@@ -168,8 +166,7 @@ function Intro() {
       <Features />
 
       <p class="text-gray-600">
-        Fresh embraces the tried and true design of server side rendering and
-        progressive enhancement on the client side.
+        Ponder embraces the wonders of Deno, and takes advantage of the ever popular PostGresSQL.
       </p>
     </section>
   );
@@ -208,21 +205,32 @@ function GettingStarted(props: { origin: string }) {
         </p>
       </div>
       <p class="text-gray-600">
-        To bootstrap a new project:
+        To include Ponder in your next project, add this dependency:
       </p>
 
       <CopyArea>
-        {`deno run -A -r ${props.origin} my-project`}
+        {`import * as ponder from "https://deno.land/x/ponder@v0.0.3.1/mod.ts";`}
       </CopyArea>
 
       <p class="text-gray-600">
-        Enter the newly created project directory and run the following command
-        to start the development server:
+        You'll now be able to connect Ponder to your Database. First, store your Database URI in your own .env file. Then you can pull into your working file, the Database URI.
       </p>
 
-      <CopyArea>{`deno task start`}</CopyArea>
+      <CopyArea>{`const DB_URI = Deno.env.get('DB_URI');`}</CopyArea>
 
       <p class="text-gray-600">
+        Now you can connect to your DB using the built-in poolConnection method: 
+      </p>
+
+      <CopyArea>{'const ponderDB1 = await ponder.poolConnection(`${DB_URI}`, 3, true);'}</CopyArea>
+
+      <p class="text-gray-600">
+        Now you are now able to run any of the built in functions off the ponderDB1 variable: 
+      </p>
+
+      <CopyArea>{"const inserted = await ponderDB1.insertIntoTable('people', ['name', 'hair_color'], ['Corey', 'red-brown']);"}</CopyArea>
+
+      {/* <p class="text-gray-600">
         You can now open{" "}
         <a
           href="http://localhost:8000"
@@ -231,8 +239,8 @@ function GettingStarted(props: { origin: string }) {
           http://localhost:8000
         </a>{" "}
         in your browser to view the page.
-      </p>
-      <p class="text-gray-600">
+  </p>}}*/}
+      <p class="text-gray-600"> 
         A more in-depth{" "}
         <a
           href="/docs/getting-started"
@@ -265,7 +273,7 @@ function Example() {
         {" "}
         {timeFmt.format(new Date())}.
       </p>
-      <p class="text-gray-600">
+      {/* <p class="text-gray-600">
         The counter below was rendered on the server with a starting value of 3,
         and was then hydrated on the client to provide interactivity. Try out
         the buttons!
@@ -273,7 +281,7 @@ function Example() {
       <Counter start={3} />
       <p class="text-gray-600">
         Only the JS required to render that counter is sent to the client.
-      </p>
+      </p> */}
     </section>
   );
 }
@@ -286,7 +294,7 @@ function Showcase() {
           Showcase
         </a>
       </h2>
-      <p class="text-gray-600">
+      {/* <p class="text-gray-600">
         Below is a selection of projects that have been built with Fresh.
       </p>
       <Projects items={projects.slice(0, 3)} class="gap-8" />
@@ -295,7 +303,7 @@ function Showcase() {
         <a href="./showcase" class="hover:underline focus:underline">
           View more
         </a>
-      </div>
+      </div> */}
     </section>
   );
 }
